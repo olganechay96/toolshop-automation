@@ -6,11 +6,10 @@ namespace Toolshop.Tests;
 public class HomePageTests
 {
     private const string BaseUrl = "https://practicesoftwaretesting.com";
-
-    private IPlaywright _playwright;
-    private IBrowser _browser;
-    private IBrowserContext _context;
-    private IPage _page;
+    private IPlaywright _playwright = null!;
+    private IBrowser _browser = null!;
+    private IBrowserContext _context = null!;
+    private IPage _page = null!;
 
     [OneTimeSetUp]
     public async Task OneTimeSetUp()
@@ -38,13 +37,13 @@ public class HomePageTests
     [TearDown]
     public async Task TearDown()
     {
-        await _context.CloseAsync();
+        if (_context is not null) await _context.CloseAsync();
     }
 
     [OneTimeTearDown]
     public async Task OneTimeTearDown()
     {
-        await _browser.CloseAsync();
-        _playwright.Dispose();
+        if (_browser is not null) await _browser.CloseAsync();
+        _playwright?.Dispose();
     }
 }
